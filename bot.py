@@ -3,6 +3,7 @@ import os
 
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
@@ -11,10 +12,12 @@ intents.members = True
 intents.messages = True
 intents.message_content = True
 
+load_dotenv()
+
 
 class Bot(commands.Bot):
     def __init__(self):
-        super().__init__(command_prefix=os.environ.get('prefix'), intents=intents)
+        super().__init__(command_prefix=os.environ.get('PREFIX'), intents=intents)
 
     async def startup(self):
         await bot.wait_until_ready()
@@ -36,4 +39,4 @@ class Bot(commands.Bot):
         self.loop.create_task(self.startup())
 
 bot = Bot()
-bot.run(os.environ.get('token'))
+bot.run(os.environ.get('TOKEN'))
